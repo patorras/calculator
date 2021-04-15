@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Permanent Marker', cursive;
+    font-weight: bolder;
+    font-size: 120%
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+body {
+    display: grid;
+    margin-top: 15vh;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    margin: 4px;
+}
+
+#calc {
+    display: grid;
+    width: 50vh;
+    height: 60vh;
+    flex-direction: column;
+
+    background: #000000;
+}
+
+#screen {
+    padding: 10px;
+    display: flex;
+
+    background-color: gray;
+}
+
+#clearButton, #deleteButton {
+    box-shadow:inset 0px 39px 0px -24px #e67a73;
+	background-color:#e4685d;
+	border-radius:4px;
+	border:1px solid #ffffff;
+	display:inline-block;
+	cursor:pointer;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #9c362e;
+    display: grid;
+    
+}
+
+#clearButton {
+    display: grid;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: row1-start;
+    grid-row-end: 1;
+}
+
+#deleteButton {
+    display: grid;
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: row1-start;
+    grid-row-end: 1;
+}
+
+
+#calcButtons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    
+}
