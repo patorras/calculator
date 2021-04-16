@@ -22,8 +22,16 @@ function divide (value1, value2) {
 
 function buttonPress (number) {
     
-    console.log(number);
+    
+
+
+    let second = document.getElementById("screen").textContent 
+
+    document.getElementById("screen").innerHTML = "" + second + number;
+
 }
+
+
 
 // lets try, do a while loop, that while +-*/.= are not pressed just contenate the number string to the variable1
 
