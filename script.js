@@ -1,8 +1,26 @@
-;
 
+let value1 = "";
+let value2 = "";
 
-function add (value1, value2) {
-    return value1 + value2;
+function equal () {
+    value2 = document.getElementById("screen").textContent;
+
+    console.log(Number(value1) + Number(value2));
+}
+
+function add () {
+
+    value1 = document.getElementById("screen").textContent;
+    
+    document.getElementById("screen").textContent = "";
+
+    console.log(Number(value1));
+
+    return value1;
+
+    
+    
+
 }
 
 function subtract (value1, value2) {
@@ -29,8 +47,12 @@ function buttonPress (number) {
 
     document.getElementById("screen").innerHTML = "" + second + number;
 
+    return Number(number);
+
 }
 
+
+// press +, stores the screen value into a variable, clears the screen, and runs 
 
 
 // lets try, do a while loop, that while +-*/.= are not pressed just contenate the number string to the variable1
