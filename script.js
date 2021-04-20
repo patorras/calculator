@@ -2,29 +2,36 @@
 let value1 = "";
 let value2 = "";
 
+let result = "";
+
+let operation = "";
+
 function equal () {
     value2 = document.getElementById("screen").textContent;
 
-    console.log(Number(value1) + Number(value2));
+    if (operation === "+") {
+        result = Number(value1) + Number(value2);
+    }
+    else if (operation === "-") {
+        result = Number(value1) - Number(value2);
+    }
+
+    document.getElementById("screen").innerHTML = result;
+
 }
 
 function add () {
 
-    value1 = document.getElementById("screen").textContent;
-    
-    document.getElementById("screen").textContent = "";
+    mid()
 
-    console.log(Number(value1));
-
-    return value1;
-
-    
-    
-
+    operation = "+";
 }
 
-function subtract (value1, value2) {
-    return value1 - value2;
+function subtract () {
+    mid()
+
+    operation = "-";
+
 }
 
 function multiply (value1, value2) {
@@ -36,12 +43,9 @@ function divide (value1, value2) {
 }
 
 
-// press a button, stores that number 
+// press a button, will keep on adding number to the right side of the screen
 
 function buttonPress (number) {
-    
-    
-
 
     let second = document.getElementById("screen").textContent 
 
@@ -49,6 +53,25 @@ function buttonPress (number) {
 
     return Number(number);
 
+}
+
+// stores the fisrt value and clears the content on th screen
+function mid () {
+    value1 = document.getElementById("screen").textContent;
+    
+    document.getElementById("screen").textContent = "";
+
+    return value1;
+}
+
+function clearButton () {
+    document.getElementById("screen").textContent = "";
+}
+
+function deleteButton () {
+    let a = document.getElementById("screen").textContent.slice(0, -1);
+
+    return document.getElementById("screen").innerHTML = a;
 }
 
 

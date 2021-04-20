@@ -12,8 +12,8 @@
         <div id="screen"></div>
 
         <div id="calcButtons">
-            <button class="btn" id="clearButton">CLEAR</button>
-            <button class="btn" id="deleteButton">DELETE</button>
+            <button class="btn" id="clearButton" onclick="clearButton()">CLEAR</button>
+            <button class="btn" id="deleteButton" onclick="deleteButton()">DELETE</button>
     
             <button class="btn" id="7Button" value="7" onclick="buttonPress(this.value)">7</button>
             <button class="btn" id="8Button" value="8" onclick="buttonPress(this.value)" >8</button>
@@ -28,10 +28,10 @@
             <button class="btn" id="1Button" value="1" onclick="buttonPress(this.value)">1</button>
             <button class="btn" id="2Button" value="2" onclick="buttonPress(this.value)">2</button>
             <button class="btn" id="3Button" value="3" onclick="buttonPress(this.value)">3</button>
-            <button id="-Button">-</button>
+            <button class="btn" id="-Button" onclick="subtract()">-</button>
     
             <button id="dotButton">.</button>
-            <button id="0Button">0</button>
+            <button class="btn" id="0Button" value="0" onclick="buttonPress(this.value)">0</button>
             <button class ="btn" id="equalButton" onclick="equal()">=</button>
             <button class="btn" id="+Button" onclick="add()">+</button>
         </div>
