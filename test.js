@@ -9,7 +9,7 @@ let operator = "";
 let keyPress = window.addEventListener('keypress', (e) => {
     let jsdf = document.getElementById("screen").textContent;
     
-    if (/[0-9]/.test(Number(e.key))) {
+    if (/[0-9]/.test(Number(e.key)) || e.key === ".") {
 
         if(operator === "") {
             return value1 = document.getElementById("screen").innerHTML = jsdf + e.key;
@@ -26,6 +26,7 @@ let operation = window.addEventListener("keypress", (e) => {
     if(e.key === "+" ||e.key === "-" || e.key === "*" || e.key === "/") {
         console.log(e.key)
         document.getElementById("screen").innerText = "";
+ 
         return operator = e.key;
     }
     
@@ -37,6 +38,7 @@ let clear = window.addEventListener("keydown", (e) => {
         document.getElementById("screen").innerText = "";
         value1 = "";
         value2 = "";
+        operator = "";
     }
     else if (e.key === "Backspace") {
         console.log(e);
@@ -65,7 +67,11 @@ function mult (value1, value2) {
 }
 
 function division (value1, value2) {
-    return Number(value1) / Number(value2);
+    let result = Number(value1) / Number(value2);
+    if(Number(result) === result && result % 1 !== 0) {
+        return result.toFixed(2);
+    }
+    return result;
 }
 
 //else if operator === "="
