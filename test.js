@@ -3,6 +3,7 @@
 let value1 = "";
 let value2 ="";
 let operator = "";
+let result ="";
 
 // if number key is pressed and operator === ""
     // add to what is stored in the first value
@@ -55,22 +56,26 @@ let clear = window.addEventListener("keydown", (e) => {
 })
 
 function sum (value1, value2) {
-    return Number(value1) + Number(value2);
+    result = Number(value1) + Number(value2);
+    return result;
 }
 
 function sub (value1, value2) {
-    return Number(value1) - Number(value2);
+    result = Number(value1) - Number(value2);
+    return result;
 }
 
 function mult (value1, value2) {
-    return Number(value1) * Number(value2);
+    result = Number(value1) * Number(value2);
+    return result;
 }
 
 function division (value1, value2) {
-    let result = Number(value1) / Number(value2);
-    if(Number(result) === result && result % 1 !== 0) {
-        return result.toFixed(2);
+    let resultDivision = Number(value1) / Number(value2);
+    if(Number(resultDivision) === resultDivision && resultDivision % 1 !== 0) {
+        return resultDivision.toFixed(2);
     }
+    result = resultDivision;
     return result;
 }
 
@@ -80,18 +85,31 @@ let equal = window.addEventListener("keypress", (e) => {
     if (e.key === "=" || e.key === "Enter") {
         //if operator === "+"
         // call sum function
-        if (operator === "+") {
+        if (result != "" && operator === "+") {
+            document.getElementById("screen").innerHTML = sum(result, value2)
+        }
+        else if (operator === "+") {
             document.getElementById("screen").innerHTML = sum(value1, value2)
+        }
+        else if (result != "" && operator === "-") {
+            document.getElementById("screen").innerHTML = sub(result, value2)
         }
         else if (operator === "-") {
             document.getElementById("screen").innerHTML = sub(value1, value2)
         }
+        else if (result != "" && operator === "*") {
+            document.getElementById("screen").innerHTML = mult(result, value2)
+        }
         else if (operator  === "*") {
             document.getElementById("screen").innerHTML = mult(value1, value2)
+        }
+        else if (result != "" && operator === "/") {
+            document.getElementById("screen").innerHTML = division(result, value2)
         }
         else if (operator === "/") {
             document.getElementById("screen").innerHTML = division(value1, value2)
         }
+        
     }
 })
 
