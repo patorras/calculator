@@ -16,16 +16,46 @@ let keyPress = window.addEventListener('keypress', (e) => {
             return value1 = document.getElementById("screen").innerHTML = jsdf + e.key;
         }
         else if (operator === "+" ||operator === "-" || operator === "*" || operator === "/") {
+                
             return value2 = document.getElementById("screen").innerHTML = jsdf + e.key;
         }
         
     }  
 }) 
 
+function calculateValue() {
+    if (result != "" && operator === "+") {
+        document.getElementById("screen").innerHTML = sum(result, value2)
+    }
+    else if (operator === "+") {
+        document.getElementById("screen").innerHTML = sum(value1, value2)
+    }
+    else if (result != "" && operator === "-") {
+        document.getElementById("screen").innerHTML = sub(result, value2)
+    }
+    else if (operator === "-") {
+        document.getElementById("screen").innerHTML = sub(value1, value2)
+    }
+    else if (result != "" && operator === "*") {
+        document.getElementById("screen").innerHTML = mult(result, value2)
+    }
+    else if (operator  === "*") {
+        document.getElementById("screen").innerHTML = mult(value1, value2)
+    }
+    else if (result != "" && operator === "/") {
+        document.getElementById("screen").innerHTML = division(result, value2)
+    }
+    else if (operator === "/") {
+        document.getElementById("screen").innerHTML = division(value1, value2)
+    }
+}
+
 // function () change operator
 let operation = window.addEventListener("keypress", (e) => {
     if(e.key === "+" ||e.key === "-" || e.key === "*" || e.key === "/") {
-        console.log(e.key)
+
+        calculateValue();
+
         document.getElementById("screen").innerText = "";
  
         return operator = e.key;
@@ -40,6 +70,7 @@ let clear = window.addEventListener("keydown", (e) => {
         value1 = "";
         value2 = "";
         operator = "";
+        result = "";
     }
     else if (e.key === "Backspace") {
         console.log(e);
@@ -85,30 +116,7 @@ let equal = window.addEventListener("keypress", (e) => {
     if (e.key === "=" || e.key === "Enter") {
         //if operator === "+"
         // call sum function
-        if (result != "" && operator === "+") {
-            document.getElementById("screen").innerHTML = sum(result, value2)
-        }
-        else if (operator === "+") {
-            document.getElementById("screen").innerHTML = sum(value1, value2)
-        }
-        else if (result != "" && operator === "-") {
-            document.getElementById("screen").innerHTML = sub(result, value2)
-        }
-        else if (operator === "-") {
-            document.getElementById("screen").innerHTML = sub(value1, value2)
-        }
-        else if (result != "" && operator === "*") {
-            document.getElementById("screen").innerHTML = mult(result, value2)
-        }
-        else if (operator  === "*") {
-            document.getElementById("screen").innerHTML = mult(value1, value2)
-        }
-        else if (result != "" && operator === "/") {
-            document.getElementById("screen").innerHTML = division(result, value2)
-        }
-        else if (operator === "/") {
-            document.getElementById("screen").innerHTML = division(value1, value2)
-        }
+        calculateValue();
         
     }
 })
