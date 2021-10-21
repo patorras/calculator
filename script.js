@@ -1,87 +1,250 @@
+// TO DO    result can have only 2 decimal houses
 
-let value1 = "";
-let value2 = "";
+let previousValue = "";
+let currentValue ="";
+let operator = "";
+let result ="";
 
-let result = "";
+let operatorButtons = document.querySelectorAll("[data-action]");
+let numberButtons = document.querySelectorAll("[data-number]");
+let aEqualButton = document.getElementById("equalButton");
+let acClearButton = document.getElementById("clearButton");
+let aDeleteButton = document.getElementById("deleteButton");  
 
-let operation = "";
+// click number key (0–9) and comma, pressing buttons
+let keyPress = window.addEventListener('keypress', (e) => {
+  let screenTextContent = document.getElementById("screen").textContent;
+  
+  if (/[0-9]/.test(Number(e.key)) || e.key === ".") {
 
-function equal () {
-    value2 = document.getElementById("screen").textContent;
+      // does not allow more than one "." decimal
+      if (e.key === "." && screenTextContent.includes('.')) {
+          return;
+      }
 
-    if (operation === "+") {
-        result = Number(value1) + Number(value2);
+      else if(operator === "") {
+          return currentValue = document.getElementById("screen").innerHTML = screenTextContent + e.key;
+      }
+      else if (operator === "+" ||operator === "-" || operator === "*" || operator === "/") {
+          
+          return currentValue = document.getElementById("screen").innerHTML = screenTextContent + e.key;
+      }
+      
+  }  
+}) 
+
+// click number key (0–9) and comma, clicking buttons
+numberButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    // check if the string has more than one comma, and do not allow more than one
+    if (button.innerText === "." && currentValue.includes(".")) {
+      return
     }
-    else if (operation === "-") {
-        result = Number(value1) - Number(value2);
-    }
+    // add the number to the end of the current number string
+    currentValue = currentValue.toString() + button.innerText;
+    // update the screen
+    updateDisplay() 
+    console.log(currentValue)
+  })
+})
+  
 
-    document.getElementById("screen").innerHTML = result;
+// function to better format number, comma for thousands
+function getDisplayNumber(number) {
+  const stringNumber = number.toString();
+  const integerDigits = parseFloat(stringNumber.split(".")[0])
+  const decimalDigits = stringNumber.split(".")[1]
+  
+  let integerDisplay
 
+  if (isNaN(integerDigits)) {
+      integerDisplay = ""
+  }
+  else {
+      integerDisplay = integerDigits.toLocaleString("en", {maximumFractionDigits: 0})
+  }
+ 
+  if (decimalDigits != null) {
+      return `${integerDisplay}.${decimalDigits.slice(0,2)}`
+  }
+  else {
+      return integerDisplay;
+  }
+} 
+
+
+// create a update displya function
+function updateDisplay() {
+  
+  if (isFinite(currentValue)) {
+    document.getElementById("screen").innerText = getDisplayNumber(currentValue);
+  }
+  else {
+    document.getElementById("screen").innerText = "ERROR... Not possible to divide by 0..."
+  }
+  
+
+  if (operator != null) {
+    document.getElementById("previousScreen").innerText = 
+      `${getDisplayNumber(previousValue)} ${operator}`
+      
+  }
+  else {
+    document.getElementById("previousScreen").innerText = ""; 
+  }
 }
 
-function add () {
-
-    mid()
-
-    operation = "+";
-}
-
-function subtract () {
-    mid()
-
-    operation = "-";
-
-}
-
-function multiply (value1, value2) {
-    return value1 * value2;
-}
-
-function divide (value1, value2) {
-    return value1 / value2;
+function clear() {
+  // reset all variables, current number, previous number and operator
+  currentValue = "";
+  previousValue = "";
+  operator = "";
+  // and clear the main screen and secondary screen
+  updateDisplay();
 }
 
 
-// press a button, will keep on adding number to the right side of the screen
+function compute() {
+  let computation;
+  const prev = parseFloat(previousValue);
+  const current = parseFloat(currentValue);
 
-function buttonPress (number) {
+  if (isNaN(prev) || isNaN(current)) {
+    return;
+  }
 
-    let second = document.getElementById("screen").textContent 
+  switch (operator) {
+    case "+" :
+      computation = prev + current;
+      break;
+     
+    case "-" :
+      computation = prev - current;
+      break;
 
-    document.getElementById("screen").innerHTML = "" + second + number;
+    case "*" :
+      computation = prev * current;
+      break;
 
-    return Number(number);
-
-}
-
-// stores the fisrt value and clears the content on th screen
-function mid () {
-    value1 = document.getElementById("screen").textContent;
+    case "÷" :
+      computation = prev / current;
+      break;
     
-    document.getElementById("screen").textContent = "";
+    default:
+      return;
+  }
 
-    return value1;
+  currentValue = computation;
+  operator = undefined;
+  previousValue = "";
+
+}
+    
+
+function chooseOperation(operation) {
+  if (currentValue === "") {
+    return;
+  }
+  
+  if (previousValue !== "") {
+    compute();
+  }
+  
+  operation = operator;
+  previousValue = currentValue;
+  currentValue = "";
 }
 
-function clearButton () {
-    document.getElementById("screen").textContent = "";
-}
+// click operator
+operatorButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    chooseOperation(button.innerText);
+    operator = button.innerText;
+    console.log(button.innerText)
+    updateDisplay();
+    
+  })
+})
 
-function deleteButton () {
-    let a = document.getElementById("screen").textContent.slice(0, -1);
+let operation = window.addEventListener("keypress", (e) => {
+  if(e.key === "+" ||e.key === "-" || e.key === "*" || e.key === "/") {
+    chooseOperation(e.key);
+    operator = e.key;
+    updateDisplay();
+  }
+})
+  // check if there's already a operator selected if exist calculate the operation using the previous operator????????? 
+  // when clicked the previous number becames equal to the current number, and current number is equal to empty string
+  // populate the secondary screen with the previous number and the current operator
+  // update the screen 
 
-    return document.getElementById("screen").innerHTML = a;
-}
+// click equal
+let equal = window.addEventListener("keypress", (e) => {
+  if (e.key === "=" || e.key === "Enter") {
+
+    if (previousValue === "" || currentValue === "") {
+      document.getElementById("screen").innerText = "ERROR We Need 2 Values"
+    }
+    else {
+      compute()
+      updateDisplay();
+    }
+  }
+})
+
+aEqualButton.addEventListener("click", button => {
+  if (previousValue === "" || currentValue === "") {
+    document.getElementById("screen").innerText = "ERROR We Need 2 Values"
+
+  }
+  else {
+    compute()
+    updateDisplay();
+  }
+  
+})
+  // do the operation in the operator variable,
+  // we need to have a previous number and a current number
+  // clear the secondary screen and update the main screen
+  // update the operator value to a empty string
+
+// click delete
+aDeleteButton.addEventListener("click", button => {
+  // delete the last character of the current number
+  currentValue = currentValue.toString().slice(0, -1);
+    // update screen
+  updateDisplay();
+})
+  
+ 
+
+// click AC
+acClearButton.addEventListener("click", button => {
+  clear();
+})
+  
 
 
-// press +, stores the screen value into a variable, clears the screen, and runs 
+let clearKeyboard = window.addEventListener("keydown", (e) => {
+  if(e.key === "Delete") {
+      document.getElementById("screen").innerText = "";
+      currentValue = "";
+      previousValue = "";
+      operator = "";
+      result = "";
+  }
+  else if (e.key === "Backspace") {
+      console.log(e);
+      
+      let val = document.getElementById("screen").textContent.slice(0, -1);
+      document.getElementById("screen").innerHTML = val;
+      if(operator === "") {
+          return currentValue = val;
+      } 
+      else if (operator === "+" ||operator === "-" || operator === "*" || operator === "/") {
+          return currentValue = val;
+      }
+  }
+})
 
 
-// lets try, do a while loop, that while +-*/.= are not pressed just contenate the number string to the variable1
-
-// when +-*/ is pressed do a while loop, that while +-*/.= are not pressed just contenate the number string to the variable2,
-
-// press another button and stores the second number
-
-// press one of the symbols to calculate the two numbers and stores it

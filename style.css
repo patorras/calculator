@@ -1,72 +1,72 @@
-* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Permanent Marker', cursive;
-    font-weight: bolder;
-    font-size: 120%
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: serif;
+    font-weight: normal;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
 
 body {
-    display: grid;
-    margin-top: 15vh;
-    justify-content: center;
-    align-items: center;
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(to right, #114357, #f29492);
+
 }
 
-button {
-    margin: 4px;
+h1 {
+    color: #111;
+    font-family: "Helvetica Neue", "Sans-serif";
+    font-weight: bold;
+    text-align: center;
+    
 }
 
 #calc {
     display: grid;
-    width: 50vh;
-    height: 60vh;
-    flex-direction: column;
+    justify-content:center;
+    align-content:center;
+    min-height: 85vh;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+}
 
-    background: #000000;
+.btn {
+    cursor: pointer;
+    font-size: 2 rm;
+    border: 1px solid white;
+    outline: none;
+    background-color: #4eb5f1; 
+}
+
+
+button:hover { 
+    background-color: rgb(255, 255, 255, .90);
+}
+
+#clearButton, #equalButton {
+    grid-column: span 2;
+}
+
+#output {
+    grid-column: 1 / -1;
+    background-color: rgb(32, 31, 31);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+#previousScreen {
+    color: rgba(255, 255, 255, .75);
+    font-size: 1.5rem;
 }
 
 #screen {
-    padding: 10px;
-    display: flex;
-
-    background-color: gray;
-}
-
-#clearButton, #deleteButton {
-    box-shadow:inset 0px 39px 0px -24px #e67a73;
-	background-color:#e4685d;
-	border-radius:4px;
-	border:1px solid #ffffff;
-	display:inline-block;
-	cursor:pointer;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #9c362e;
-    display: grid;
-    
-}
-
-#clearButton {
-    display: grid;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: row1-start;
-    grid-row-end: 1;
-}
-
-#deleteButton {
-    display: grid;
-    grid-column-start: 3;
-    grid-column-end: 5;
-    grid-row-start: row1-start;
-    grid-row-end: 1;
+    color: white;
+    font-size: 2.5rem;
 }
 
 
-#calcButtons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    
-}
